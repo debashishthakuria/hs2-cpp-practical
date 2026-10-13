@@ -11,7 +11,12 @@ const exam=read('exam-14-october.html');
 for(const topic of ['Sorting','Searching','matrix addition and multiplication','cropped image']) assert.ok(exam.includes(topic),`Missing exam scope: ${topic}`);
 for(const href of ['index.html#lesson-11','index.html#lesson-12','index.html#home']) assert.ok(exam.includes(`href="${href}"`));
 assert.match(app,/href="exam-14-october\.html"/);assert.match(app,/DBMS assignment/);
-assert.match(html,/sidebar-home/);assert.match(html,/href="exam-14-october\.html"/);
+assert.match(html,/sidebar-home/);assert.match(html,/href="exam-14-october\.html"/);assert.match(html,/href="dbms-assignment\.html"/);
+const dbms=read('dbms-assignment.html');
+assert.equal((dbms.match(/class="db-task"/g)||[]).length,15);
+for(const marker of ['Employee','Department','Location','Mngrno','no Job/role column','Questions 12 and 14']) assert.ok(dbms.includes(marker),`DBMS missing ${marker}`);
+assert.match(app,/href="dbms-assignment\.html"/);assert.doesNotMatch(app,/Assignment sheet needed/);
+assert.match(dbms,/made with love by aloopitika\./);
 assert.match(exam,/made with love by aloopitika\./);
 assert.equal(data.length,15);assert.equal(new Set(data.map(x=>x.id)).size,15);
 for(const x of data){for(const f of ['title','topic','prompt','learn','algorithm','example','code','breakdown','tryIt','check','pitfalls'])assert.ok(x[f],`lesson ${x.id} missing ${f}`);assert.ok(x.learn.length>=3);assert.ok(x.breakdown.length>=5);assert.match(x.code,/#include <iostream.h>/);}

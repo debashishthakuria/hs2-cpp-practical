@@ -1,0 +1,70 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7f3"><title>DBMS assignment | CA practical study desk</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="study-additions.css"></head><body class="exam-page"><header class="exam-header"><a href="index.html#home">← Practical study desk</a><span>DBMS ASSIGNMENT</span></header><main class="exam-main"><p class="section-label">SOURCE: YOUR PHOTOGRAPHED ASSIGNMENT SHEET</p><h1>Employee, Department &amp; Location</h1><p class="lead">Build the three tables, insert at least five records in each, then practise the 15 numbered tasks. The source says question 1 is compulsory, though part of that note is obscured. This is an independent study guide, not a corrected official question paper.</p><p><a class="button" href="dbms-assignment-source.jpg" target="_blank" rel="noopener">View the photographed assignment sheet ↗</a></p><aside class="exam-focus"><h2>Read this before copying SQL</h2><ul><li>The given Employee schema has <strong>no Job/role column</strong>. Questions 4 and 6 cannot be answered as written. Do not invent one without your teacher’s approval.</li><li>Question 7 says <code>emp</code> and <code>ename</code>, while the sheet defines <code>Employee</code>, <code>Fname</code> and <code>Lname</code>. The suggested answer uses the declared names.</li><li>Question 8 does not specify an employee-level manager relationship. The suggested join uses the department’s <code>Mngrno</code>; confirm this interpretation.</li><li>Questions 12 and 14 repeat the same Administration-location task.</li><li>Examples below use <strong>MySQL-style SQL</strong>. Q10’s <code>MODIFY</code> syntax is MySQL-specific. Your lab may use another DBMS.</li></ul></aside><section class="exam-focus"><h2>Start with the tables</h2><p>Sheet: Employee (Fname, Lname, Empno, Bdate, Address, Salary, Dnumber); Department (Dname, Dnumber, Mngrno); Location (Dnumber, DLocation). The types, primary keys and sample values below are <strong>illustrative choices</strong>, not printed in the assignment.</p><details><summary>Reveal the table definitions and sample records</summary><pre class="exam-code">CREATE TABLE Employee (
+  Fname VARCHAR(30), Lname VARCHAR(30), Empno INT PRIMARY KEY,
+  Bdate DATE, Address VARCHAR(80), Salary DECIMAL(10,2),
+  Dnumber INT
+);
+CREATE TABLE Department (
+  Dname VARCHAR(40), Dnumber INT PRIMARY KEY, Mngrno INT
+);
+CREATE TABLE Location (
+  Dnumber INT, DLocation VARCHAR(40),
+  PRIMARY KEY (Dnumber, DLocation)
+);
+
+INSERT INTO Department (Dname,Dnumber,Mngrno) VALUES
+('Administration',10,11),('Marketing',20,12),
+('Finance',30,13),('Sales',40,14),('Human Resources',50,15);
+INSERT INTO Location (Dnumber,DLocation) VALUES
+(10,'Guwahati'),(20,'Jorhat'),(30,'Guwahati'),
+(40,'Silchar'),(50,'Tezpur');
+INSERT INTO Employee (Fname,Lname,Empno,Bdate,Address,Salary,Dnumber) VALUES
+('Rita','Das',11,'1995-05-12','Guwahati',30000,10),
+('Rohan','Bora',12,'1994-04-20','Jorhat',32000,20),
+('Mina','Roy',13,'1993-08-11','Guwahati',35000,30),
+('Nayan','Ali',14,'1992-12-02','Silchar',29000,40),
+('Puja','Sen',15,'1996-07-17','Tezpur',28000,50),
+('Ravi','Deka',10,'2002-09-01','Jorhat',18000,20),
+('Reena','Nath',16,'2000-06-09','Guwahati',24000,30),
+('Bimal','Kalita',17,'2001-01-15','Jorhat',16000,20);</pre></details><p>Practise: identify which employees belong to Marketing and who their department manager is before running the queries. Run Q9 only after practising the earlier questions, since it changes the sample name.</p></section><section class="exam-focus"><h2>Queries from the sheet</h2><p>Read each task first; reveal a suggested answer only after attempting it. Wording is lightly spaced for readability; apparent schema mismatches are called out rather than silently repaired.</p>
+<article class="db-task"><h3>1. Display the records of employee table.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT * FROM Employee;</pre><p>Start here; the assignment marks question 1 compulsory.</p></details></article>
+<article class="db-task"><h3>2. Display employees working in department 20.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT * FROM Employee WHERE Dnumber = 20;</pre><p>Filter rows by the department number stored on each employee.</p></details></article>
+<article class="db-task"><h3>3. Display employees in descending salary order.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT * FROM Employee ORDER BY Salary DESC;</pre><p><code>DESC</code> places the largest salary first.</p></details></article>
+<article class="db-task"><h3>4. Display the count of different jobs in employee table.</h3><p class="db-warning">Blocked by the printed schema: Employee has no Job column. Ask whether a Job/role attribute was omitted.</p><details><summary>Show conditional example only if Job is added</summary><pre class="exam-code">-- ONLY if your teacher adds Employee.Job:
+SELECT Job, COUNT(*) AS EmployeeCount
+FROM Employee GROUP BY Job;</pre><p>This gives a count per job. If the task instead means the number of distinct job titles, use <code>COUNT(DISTINCT Job)</code>.</p></details></article>
+<article class="db-task"><h3>5. Minimum, total and average salary of each department.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT Dnumber, MIN(Salary) AS MinimumSalary,
+       SUM(Salary) AS TotalSalary,
+       AVG(Salary) AS AverageSalary
+FROM Employee GROUP BY Dnumber;</pre><p>Aggregate separately for each <code>Dnumber</code>.</p></details></article>
+<article class="db-task"><h3>6. Details of employees working as ‘Manager’.</h3><p class="db-warning">Ambiguous: there is no Job column. If “Manager” means the employee referenced by Department.Mngrno, use this interpretation; it does not prove their job title is Manager.</p><details><summary>Show department-manager interpretation</summary><pre class="exam-code">SELECT DISTINCT E.* FROM Employee AS E
+JOIN Department AS D ON E.Empno = D.Mngrno;</pre></details></article>
+<article class="db-task"><h3>7. Display empno, ename, salary from emp with salary between 15000 and 20000.</h3><p class="db-warning">The sheet’s <code>emp</code> and <code>ename</code> do not exist in its declared schema. The query uses Employee and both name columns.</p><details><summary>Show query using declared columns</summary><pre class="exam-code">SELECT Empno, Fname, Lname, Salary FROM Employee
+WHERE Salary BETWEEN 15000 AND 20000;</pre><p><code>BETWEEN</code> includes both endpoints.</p></details></article>
+<article class="db-task"><h3>8. List employee names with their manager’s name, where names start with ‘R’.</h3><p class="db-warning">Interpreted here as <em>manager names</em> beginning with R, using each department’s Mngrno. The sheet does not say whose names the R condition applies to.</p><details><summary>Show interpreted join</summary><pre class="exam-code">SELECT E.Fname AS EmployeeName, E.Lname AS EmployeeLastName,
+       M.Fname AS ManagerName, M.Lname AS ManagerLastName
+FROM Employee AS E
+JOIN Department AS D ON E.Dnumber = D.Dnumber
+JOIN Employee AS M ON D.Mngrno = M.Empno
+WHERE M.Fname LIKE 'R%';</pre><p>If the teacher means employee names, change the condition to <code>E.Fname LIKE 'R%'</code>.</p></details></article>
+<article class="db-task"><h3>9. Change the name of the employee whose number is 10 to Amar.</h3><details><summary>Show suggested query</summary><pre class="exam-code">UPDATE Employee SET Fname = 'Amar' WHERE Empno = 10;
+SELECT Empno, Fname, Lname FROM Employee WHERE Empno = 10;</pre><p>This assumes “number” means Empno and “name” means Fname.</p></details></article>
+<article class="db-task"><h3>10. Alter salary’s data type to numeric.</h3><details><summary>Show MySQL-specific query</summary><pre class="exam-code">ALTER TABLE Employee MODIFY Salary DECIMAL(10,2);</pre><p><code>DECIMAL(10,2)</code> is a numeric type suitable for sample salaries. Syntax varies across database systems.</p></details></article>
+<article class="db-task"><h3>11. Total, maximum, minimum and average Marketing salary.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT SUM(E.Salary) AS TotalSalary,
+       MAX(E.Salary) AS MaximumSalary,
+       MIN(E.Salary) AS MinimumSalary,
+       AVG(E.Salary) AS AverageSalary
+FROM Employee AS E
+JOIN Department AS D ON E.Dnumber = D.Dnumber
+WHERE D.Dname = 'Marketing';</pre></details></article>
+<article class="db-task"><h3>12. Retrieve the Administration department’s location.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT L.DLocation FROM Department AS D
+JOIN Location AS L ON D.Dnumber = L.Dnumber
+WHERE D.Dname = 'Administration';</pre></details></article>
+<article class="db-task"><h3>13. Names of Finance employees earning more than 20000.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT E.Fname, E.Lname FROM Employee AS E
+JOIN Department AS D ON E.Dnumber = D.Dnumber
+WHERE D.Dname = 'Finance' AND E.Salary &gt; 20000;</pre></details></article>
+<article class="db-task"><h3>14. Retrieve the Administration department’s location.</h3><p class="db-warning">This duplicates question 12 on the photographed sheet; it is not a new task.</p><details><summary>Show the same query</summary><pre class="exam-code">SELECT L.DLocation FROM Department AS D
+JOIN Location AS L ON D.Dnumber = L.Dnumber
+WHERE D.Dname = 'Administration';</pre></details></article>
+<article class="db-task"><h3>15. Perform an equijoin on Employee and Department.</h3><details><summary>Show suggested query</summary><pre class="exam-code">SELECT E.Empno, E.Fname, E.Lname, D.Dname
+FROM Employee AS E
+JOIN Department AS D ON E.Dnumber = D.Dnumber;</pre><p>The equality condition connects matching department numbers. The printed phrase “department the files” is unclear.</p></details></article></section><section class="exam-focus"><h2>Quick revision before the practical</h2><ol class="steps"><li>Write the three <code>CREATE TABLE</code> statements and explain each primary key.</li><li>Practise <code>WHERE</code>, <code>ORDER BY</code>, <code>GROUP BY</code> and the aggregate functions on the sample data.</li><li>Trace the join path: Employee.Dnumber → Department.Dnumber → Location.Dnumber; for managers, Department.Mngrno → Employee.Empno.</li><li>Ask your teacher about the missing Job field, the names in question 7, the R condition in question 8, and the DBMS used in the lab.</li></ol></section></main><footer class="exam-footer"><p>Independent practice based on a photographed assignment. Verify ambiguous wording and the SQL dialect with your teacher.</p><p><a href="index.html#home">Back to study desk</a> · <a href="exam-14-october.html">Practical exam preparation</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms &amp; conditions</a></p><p class="credit">made with love by aloopitika.</p></footer></body></html>

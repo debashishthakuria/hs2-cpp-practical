@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f7f7f3"><title>14 October CA practical preparation</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="study-additions.css"></head><body class="exam-page"><header class="exam-header"><a href="index.html#home">← Practical study desk</a><span>14 OCTOBER · CA PRACTICAL</span></header><main class="exam-main"><p class="section-label">LAST-MINUTE PREPARATION</p><h1>Practise the steps, not just the code.</h1><p class="lead">The cropped image you sent shows <strong>Sorting</strong>, <strong>Searching</strong>, and <strong>matrix addition and multiplication</strong>. It does not show the full syllabus or specify algorithms. The word “Text” is also visible but lacks context. This page covers those visible areas as practice, not as a claim about the entire exam.</p><section class="exam-focus"><h2>Three focused rounds</h2><ol class="steps"><li>Sorting: trace a small list by hand. Then explain where the comparisons and swaps occur.</li><li>Searching: practise linear search, and binary search only if your class covered it. For binary search, sort the list first.</li><li>Matrices: write the addition and multiplication dimension rules before writing any loops.</li></ol></section><section class="exam-focus"><h2>Sorting</h2><p><strong>Bubble sort:</strong> compare adjacent values and swap when out of order. With 5, 2, 4, the first pass changes the list to 2, 4, 5. <strong>Insertion sort:</strong> take the next value and insert it into its place in the already sorted left portion.</p><p><strong>Practise:</strong> trace both methods on 7, 1, 5, 3. Then write one method without looking at the solution. The existing assignment lesson has Turbo C++-style code for both methods.</p><p><a class="button primary" href="index.html#lesson-12">Study sorting lesson →</a></p></section><section class="exam-focus"><h2>Searching</h2><p><strong>Linear search:</strong> inspect items one by one until the target is found or the list ends. Keep the found position separate from the target value. <strong>Binary search:</strong> only on a sorted list, compare the middle item and discard one half at each step.</p><p><strong>Practise:</strong> find 9 in 4, 9, 2, 8 using linear search; answer: second position (index 1 in a zero-based array). For binary search, first take a sorted list such as 2, 4, 8, 9.</p>
+<details><summary>Show Turbo C++ linear-search example</summary><pre class="exam-code">#include &lt;iostream.h&gt;
+#include &lt;conio.h&gt;
+void main() {
+    clrscr();
+    int a[20], n, target, i, pos = -1;
+    cout &lt;&lt; "How many numbers (1-20)? ";
+    cin &gt;&gt; n;
+    if (n &lt; 1 || n &gt; 20) {
+        cout &lt;&lt; "Invalid count";
+        getch();
+        return;
+    }
+    for (i = 0; i &lt; n; i++) cin &gt;&gt; a[i];
+    cout &lt;&lt; "Search for: ";
+    cin &gt;&gt; target;
+    for (i = 0; i &lt; n; i++) {
+        if (a[i] == target) { pos = i; break; }
+    }
+    if (pos == -1) cout &lt;&lt; "Not found";
+    else cout &lt;&lt; "Found at position " &lt;&lt; pos + 1;
+    getch();
+}</pre></details></section><section class="exam-focus"><h2>Matrix addition and multiplication</h2><p><strong>Addition:</strong> both matrices must have the same number of rows and columns; add matching entries. <strong>Multiplication:</strong> A’s columns must equal B’s rows. If A is 2 × 3 and B is 3 × 2, AB is 2 × 2, but addition is not possible. Each product entry sums A[i][k] × B[k][j] across k.</p><p><strong>Practise:</strong> add two 2 × 2 matrices, then multiply them by hand and check your row-by-column calculation. The assignment lesson includes a complete Turbo C++-style example.</p><p><a class="button primary" href="index.html#lesson-11">Study matrix lesson →</a></p></section><section class="exam-focus"><h2>Before you go</h2><ul><li>Know how to read n values, validate array size, and use nested loops.</li><li>Trace one input and predict the output before running a program.</li><li>Check array bounds and distinguish a one-based position from a zero-based index.</li><li>Confirm the full syllabus, compiler, and any DBMS component with your teacher or the complete notice; the image is cropped.</li></ul></section></main><footer class="exam-footer"><p>This is independent practice from a partial image. Verify the exam scope and code with your teacher.</p><p><a href="index.html#home">Back to the study desk</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms &amp; conditions</a></p><p class="credit">made with love by aloopitika.</p></footer></body></html>

@@ -7,6 +7,12 @@ assert.match(html,/id="progress"/);assert.match(html,/id="menu-toggle"/);
 assert.match(html,/independent|verify|check with your teacher/i);assert.match(html,/made with love by aloopitika\./);
 assert.match(css,/@media/);assert.match(app,/localStorage/);assert.match(app,/hashchange/);assert.match(app,/escapeHtml/);
 const vm=require('vm');let context={window:{}};vm.runInNewContext(lessons,context);let data=context.window.LESSONS;
+const exam=read('exam-14-october.html');
+for(const topic of ['Sorting','Searching','matrix addition and multiplication','cropped image']) assert.ok(exam.includes(topic),`Missing exam scope: ${topic}`);
+for(const href of ['index.html#lesson-11','index.html#lesson-12','index.html#home']) assert.ok(exam.includes(`href="${href}"`));
+assert.match(app,/href="exam-14-october\.html"/);assert.match(app,/DBMS assignment/);
+assert.match(html,/sidebar-home/);assert.match(html,/href="exam-14-october\.html"/);
+assert.match(exam,/made with love by aloopitika\./);
 assert.equal(data.length,15);assert.equal(new Set(data.map(x=>x.id)).size,15);
 for(const x of data){for(const f of ['title','topic','prompt','learn','algorithm','example','code','breakdown','tryIt','check','pitfalls'])assert.ok(x[f],`lesson ${x.id} missing ${f}`);assert.ok(x.learn.length>=3);assert.ok(x.breakdown.length>=5);assert.match(x.code,/#include <iostream.h>/);}
 console.log('PASS site contracts + 15 lesson structures');

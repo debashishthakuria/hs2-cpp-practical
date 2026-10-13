@@ -1,0 +1,36 @@
+Validation: 15 IDs in order; all mandatory fields present; learn >=3, algorithm >=4, breakdown >=5; examples and ASCII code present.
+Compiler: g++ (MinGW.org GCC-6.3.0-1) 6.3.0
+Method: adapted legacy headers to standard MinGW headers, void main to int main, and clrscr/getch to inert shims. This is NOT native Turbo C++ 3.0 compilation.
+Compiler command for each: g++ -std=gnu++98 -Wall -Wextra -pedantic lesson-N.cpp -o lesson-N.exe
+
+#1 compiler exit=0; stdout=''; stderr=''
+#1 run exit=0; expected substrings=['Square: 16', 'Rectangle: 16', 'Circle: 15.7']; missing=[]; stdout='Side: Length and breadth: Radius: Square: 16\nRectangle: 16\nCircle: 15.7\n'; stderr=''
+#2 compiler exit=0; stdout=''; stderr=''
+#2 run exit=0; expected substrings=['Integer sum: 5', 'Float sum: 3.75', 'Double sum: 0.3']; missing=[]; stdout='Two integers: Two floats: Two doubles: Integer sum: 5\nFloat sum: 3.75\nDouble sum: 0.3\n'; stderr=''
+#3 compiler exit=0; stdout=''; stderr=''
+#3 run exit=0; expected substrings=['Name: Asha Das Roll: 1 Grade: A', 'Name: Mina Roy Roll: 3 Grade: A']; missing=[]; stdout='Student 1\nName: Roll number: Grade: Student 2\nName: Roll number: Grade: Student 3\nName: Roll number: Grade: Name: Asha Das Roll: 1 Grade: A\nName: Ravi Sen Roll: 2 Grade: B\nName: Mina Roy Roll: 3 Grade: A\n'; stderr=''
+#4 compiler exit=0; stdout=''; stderr=''
+#4 run exit=0; expected substrings=['Employee 7 net salary: 1240']; missing=[]; stdout='Number of employees (1-10): ID and basic salary: Employee 7 net salary: 1240\n'; stderr=''
+#5 compiler exit=0; stdout=''; stderr=''
+#5 run exit=0; expected substrings=['Asha\nMina\nRavi']; missing=[]; stdout='Number of students (1-10): Name 1: Name 2: Name 3: Alphabetical order:\nAsha\nMina\nRavi\n'; stderr=''
+#6 compiler exit=0; stdout=''; stderr=''
+#6 run exit=0; expected substrings=['Smallest: -2']; missing=[]; stdout='Three integers: Smallest: -2\n'; stderr=''
+#7 compiler exit=0; stdout=''; stderr=''
+#7 run exit=0; expected substrings=['Sum: 6 - 2i']; missing=[]; stdout='Real and imaginary parts: Real and imaginary parts: Sum: 6 - 2i\n'; stderr=''
+#8 compiler exit=0; stdout=''; stderr=''
+#8 run exit=0; expected substrings=['Factorial: 120']; missing=[]; stdout='Number (0-12): Factorial: 120\n'; stderr=''
+#9 compiler exit=0; stdout=''; stderr=''
+#9 run exit=0; expected substrings=['Fibonacci: 0 1 1 2 3 5 8']; missing=[]; stdout='Terms (1-46): Fibonacci: 0 1 1 2 3 5 8 \n'; stderr=''
+#10 compiler exit=0; stdout=''; stderr=''
+#10 run exit=0; expected substrings=['Name: Asha Das', 'Roll: 12']; missing=[]; stdout='Name: Roll: Name: Asha Das\nRoll: 12\n'; stderr=''
+#11 compiler exit=0; stdout=''; stderr=''
+#11 run exit=0; expected substrings=['Sum:\n6 8 \n10 12', 'Product:\n19 22 \n43 50']; missing=[]; stdout='Rows and columns of A (1-3): Rows and columns of B (1-3): Enter A row by row:\nEnter B row by row:\nSum:\n6 8 \n10 12 \nProduct:\n19 22 \n43 50 \n'; stderr=''
+#12 compiler exit=0; stdout=''; stderr=''
+#12 run exit=0; expected substrings=['Bubble: 1 2 3 4 5', 'Insertion: 1 2 3 4 5']; missing=[]; stdout='Count (1-20): Enter numbers: Bubble: 1 2 3 4 5 \nInsertion: 1 2 3 4 5 \n'; stderr=''
+#13 compiler exit=0; stdout=''; stderr=''
+#13 run exit=0; expected substrings=['Original file:\nFirst line', 'Modified file:\nFirst line\nSecond line']; missing=[]; stdout='Original line: Original file:\nFirst line\nAdditional line: Modified file:\nFirst line\nSecond line\n'; stderr=''; NOTES.TXT='First line\nSecond line\n'
+#14 compiler exit=0; stdout=''; stderr=''
+#14 run exit=0; expected substrings=['Copied ABC.text to XYZ.text']; missing=[]; stdout='Copied ABC.text to XYZ.text.\n'; stderr=''; XYZ.text='Hello\nC++\n'
+#15 compiler exit=0; stdout=''; stderr=''
+#15 run exit=0; expected substrings=['Area: 12.56', 'Circle object destroyed.']; missing=[]; stdout='Radius: Area: 12.56\nCircle object destroyed.\n'; stderr=''
+OVERALL: PASS
